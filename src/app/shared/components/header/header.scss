@@ -1,0 +1,49 @@
+@use "sass:color";
+
+$primary-color: #3c91a0;
+$text-color: #333;
+$hover-color: #f5f5f5;
+
+.header {
+  display: flex;
+  border: 1px solid #ccc;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+
+  &__logo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      color: #777;
+      font-size: 1rem;
+      font-weight: lighter;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+
+      &.active {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__logout {
+    color: rgb(233, 232, 232);
+    background-color: $primary-color;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: color.adjust($primary-color, $lightness: -5%);
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<div class="dashboard p-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Dashboard</h1>
+    <div class="flex space-x-4">
+      <button mat-flat-button class="bg-gray-800 text-white hover:bg-gray-700" (click)="newLandShipment()">
+        Nuevo envío terrestre
+      </button>
+      <button mat-flat-button class="bg-gray-800 text-white hover:bg-gray-700" (click)="newSeaShipment()">
+        Nuevo envío marítimo
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <mat-card class="dashboard__card p-6">
+      <h2 class="text-2xl font-bold mb-2">Clientes</h2>
+      <p class="text-4xl font-bold">{{ (clientsCount$ | async)?.count}}</p>
+      <button mat-stroked-button class="dashboard__card-button mt-4" (click)="goToClients()">
+        Ver clientes
+      </button>
+    </mat-card>
+
+    <mat-card class="dashboard__card p-6">
+      <h2 class="text-2xl font-bold mb-2">Envíos Terrestres</h2>
+      <p class="text-4xl font-bold">{{ (landShipmentsCount$ | async)?.count}}</p>
+      <button mat-stroked-button class="dashboard__card-button mt-4" (click)="goToLandShipments()">
+        Ver envíos
+      </button>
+    </mat-card>
+
+    <mat-card class="dashboard__card p-6">
+      <h2 class="text-2xl font-bold mb-2">Envíos Marítimos</h2>
+      <p class="text-4xl font-bold">{{ (maritimeShipmentsCount$ | async)?.count}}</p>
+      <button mat-stroked-button class="dashboard__card-button mt-4" (click)="goToSeaShipments()">
+        Ver envíos
+      </button>
+    </mat-card>
+  </div>
+</div>

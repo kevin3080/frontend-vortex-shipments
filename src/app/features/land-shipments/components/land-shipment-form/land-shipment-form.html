@@ -1,0 +1,124 @@
+<div class="p-6">
+  <h2 mat-dialog-title>Nuevo envío terrestre</h2>
+  <mat-dialog-content>
+    <form [formGroup]="landShipmentForm" class="grid grid-cols-2 gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="clientId" required>
+          @for (client of clients$ | async; track client.id) {
+            <mat-option [value]="client.id">
+              {{ client.name }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalid('clientId')) {
+          <mat-error>Cliente es requerido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Producto</mat-label>
+        <mat-select formControlName="productId" required>
+          @for (product of products$ | async; track product.id) {
+            <mat-option [value]="product.id">
+              {{ product.name }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalid('productId')) {
+          <mat-error>Producto es requerido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Depósito</mat-label>
+        <mat-select formControlName="warehouseId" required>
+          @for (warehouse of warehouses$ | async; track warehouse.id) {
+            <mat-option [value]="warehouse.id">
+              {{ warehouse.name }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (isInvalid('warehouseId')) {
+          <mat-error>Depósito es requerido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" formControlName="quantity" required>
+        @if (isInvalid('quantity')) {
+          @if (landShipmentForm.get('quantity')?.hasError('required')) {
+            <mat-error>Cantidad es requerida.</mat-error>
+          } @else if (landShipmentForm.get('quantity')?.hasError('min')) {
+            <mat-error>Cantidad debe ser al menos 1.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de registro</mat-label>
+        <input matInput type="date" formControlName="registrationDate" required>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="regPicker"></mat-datepicker-toggle>
+        <mat-datepicker #regPicker></mat-datepicker>
+        @if (isInvalid('registrationDate')) {
+          <mat-error>Fecha de registro es requerida.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de entrega</mat-label>
+        <input matInput type="date" formControlName="deliveryDate" required>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="delPicker"></mat-datepicker-toggle>
+        <mat-datepicker #delPicker></mat-datepicker>
+        @if (isInvalid('deliveryDate')) {
+          <mat-error>Fecha de entrega es requerida.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Costo de envío</mat-label>
+        <input matInput type="number" formControlName="shippingCost" required>
+        @if (isInvalid('shippingCost')) {
+          @if (landShipmentForm.get('shippingCost')?.hasError('required')) {
+            <mat-error>Costo de envío es requerido.</mat-error>
+          } @else if (landShipmentForm.get('shippingCost')?.hasError('min')) {
+            <mat-error>Costo de envío no puede ser negativo.</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Placa del vehículo</mat-label>
+        <input matInput formControlName="vehiclePlate" required (input)="uppercaseInput($event)">
+        @if (isInvalid('vehiclePlate')) {
+          @if (landShipmentForm.get('vehiclePlate')?.hasError('required')) {
+            <mat-error>Placa es requerida.</mat-error>
+          } @else if (landShipmentForm.get('vehiclePlate')?.hasError('pattern')) {
+            <mat-error>Formato de placa inválido (ej. ABC123).</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-span-2">
+        <mat-label>Número de guía</mat-label>
+        <input matInput formControlName="guideNumber" required>
+        @if (isInvalid('guideNumber')) {
+          @if (landShipmentForm.get('guideNumber')?.hasError('required')) {
+            <mat-error>Número de guía es requerido.</mat-error>
+          } @else if (landShipmentForm.get('guideNumber')?.hasError('minlength') || landShipmentForm.get('guideNumber')?.hasError('maxlength')) {
+            <mat-error>El número de guía debe tener 10 caracteres.</mat-error>
+          } @else if (landShipmentForm.get('guideNumber')?.hasError('pattern')) {
+            <mat-error>El número de guía debe ser alfanumérico.</mat-error>
+          }
+        }
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="landShipmentForm.invalid" (click)="onSave()">Guardar</button>
+  </mat-dialog-actions>
+</div>

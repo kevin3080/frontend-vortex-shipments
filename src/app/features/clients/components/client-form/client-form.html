@@ -1,0 +1,71 @@
+<form [formGroup]="clientForm" (ngSubmit)="onSave()" class="client-form p-6">
+  <h2 class="text-2xl font-bold mb-4">Nuevo Cliente</h2>
+  
+  <mat-form-field class="w-full mb-4">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
+    @if (clientForm.get('name')?.invalid && clientForm.get('name')?.touched) {
+      @if (clientForm.get('name')?.errors?.['required']) {
+        <mat-error>El nombre es obligatorio.</mat-error>
+      }
+      @if (clientForm.get('name')?.errors?.['minlength']) {
+        <mat-error>El nombre debe tener al menos 4 letras.</mat-error>
+      }
+      @if (clientForm.get('name')?.errors?.['pattern']) {
+        <mat-error>Solo se permiten letras, espacios y guiones.</mat-error>
+      }
+    }
+  </mat-form-field>
+
+  @for (error of errors; track error) {
+    @if (error.path[0] === 'name') {
+      <p class="text-red-500 text-sm mt-2">{{ error.message }}</p>
+    }
+  }
+
+  <mat-form-field class="w-full mb-4">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email">
+    @if (clientForm.get('email')?.invalid && clientForm.get('email')?.touched) {
+      @if (clientForm.get('email')?.errors?.['required']) {
+        <mat-error>El email es obligatorio.</mat-error>
+      }
+      @if (clientForm.get('email')?.errors?.['pattern']) {
+        <mat-error>Ingresa un email válido.</mat-error>
+      }
+    }
+  </mat-form-field>
+
+  @for (error of errors; track error) {
+    @if (error.path[0] === 'email') {
+      <p class="text-red-500 text-sm mt-2">{{ error.message }}</p>
+    }
+  }
+
+  <mat-form-field class="w-full mb-4">
+    <mat-label>Teléfono</mat-label>
+    <input matInput formControlName="phone" type="tel">
+    @if (clientForm.get('phone')?.invalid && clientForm.get('phone')?.touched) {
+      @if (clientForm.get('phone')?.errors?.['required']) {
+        <mat-error>El teléfono es obligatorio.</mat-error>
+      }
+      @if (clientForm.get('phone')?.errors?.['pattern']) {
+        <mat-error>Ingresa un teléfono válido. Se permiten números, espacios, '+' y '-'.</mat-error>
+      }
+    }
+  </mat-form-field>
+
+  @for (error of errors; track error) {
+    @if (error.path[0] === 'phone') {
+      <p class="text-red-500 text-sm mt-2">{{ error.message }}</p>
+    }
+  }
+
+  <button 
+    mat-raised-button color="primary" type="submit" class="w-full"
+    [disabled]="clientForm.invalid || clientForm.pristine"
+  
+  >
+    Guardar
+  </button>
+</form>

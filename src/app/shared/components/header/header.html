@@ -1,0 +1,12 @@
+<mat-toolbar class="header">
+  <span class="header__logo">Vortex</span>
+  
+  <nav class="header__nav">
+    <a mat-button [routerLink]="routes.DASHBOARD" routerLinkActive="active" class="header__nav-item">Dashboard</a>
+    <a mat-button [routerLink]="routes.CLIENTS" routerLinkActive="active" class="header__nav-item">Clientes</a>
+    <a mat-button [routerLink]="routes.LAND_SHIPMENTS" routerLinkActive="active" class="header__nav-item">Terrestres</a>
+    <a mat-button [routerLink]="routes.SEA_SHIPMENTS" routerLinkActive="active" class="header__nav-item">Marítimos</a>
+  </nav>
+
+  <button mat-button class="header__logout" (click)="onLogout()">Salir</button>
+</mat-toolbar>
