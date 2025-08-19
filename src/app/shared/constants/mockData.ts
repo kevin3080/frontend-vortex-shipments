@@ -1,4 +1,4 @@
-import { Product, Warehouse } from "../interfaces";
+import { Port, Product, Warehouse } from "../interfaces";
 
 export const testProducts: Product[] = [
   { id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a21', name: 'Electronics Component Kit', description: 'Kit of various electronic components for assembly.' },
@@ -12,3 +12,9 @@ export const testWarehouses: Warehouse[] = [
   { id: 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a32', name: 'Regional North Depot', address: '101 Industrial Way', city: 'Medellín', country: 'Colombia' },
   { id: 'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33', name: 'South America Gateway', address: '456 Export Blvd', city: 'Sao Paulo', country: 'Brazil' },
 ];
+
+export const testPorts: Port[] = [
+  { id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a41', name: 'Port of Buenaventura', address: 'Container Terminal 1', city: 'Buenaventura', country: 'Colombia' },
+  { id: 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a42', name: 'Port of Cartagena', address: 'Main Cargo Dock', city: 'Cartagena', country: 'Colombia' },
+  { id: 'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a43', name: 'Port of Callao', address: 'Maritime Zone 3', city: 'Callao', country: 'Peru' },
+]

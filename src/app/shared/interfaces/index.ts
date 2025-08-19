@@ -18,44 +18,83 @@ export interface Warehouse {
   country: string;
 }
 
-export interface LandShipment {
+export interface Port {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+}
+
+export interface BaseShipment {
   id: string;
   client: Client;
   product: Product;
   quantity: number;
   registrationDate: string;
   deliveryDate: string;
-  warehouse: Warehouse;
   shippingCost: number;
   discountedCost: number;
+}
+
+export interface LandShipment extends BaseShipment {
+  warehouse: Warehouse;
   vehiclePlate: string;
   guideNumber: string;
 }
 
-export interface LandShipmentCreatePayload {
+export interface MaritimeShipment extends BaseShipment {
+  originPort: Port;
+  destinationPort: Port;
+  vesselName: string;
+  containerNumber: string;
+  billOfLading: string;
+}
+
+export interface BaseShipmentCreatePayload {
   clientId: string;
   productId: string;
   quantity: number;
   registrationDate: Date;
   deliveryDate: Date;
-  warehouseId: string;
   shippingCost: number;
-  vehiclePlate: string;
   guideNumber: string;
+}
+
+export interface LandShipmentCreatePayload extends BaseShipmentCreatePayload {
+  warehouseId: string;
+  vehiclePlate: string;
+}
+
+export interface MaritimeShipmentCreatePayload extends BaseShipmentCreatePayload {
+  portId: string;
+  fleetNumber: string;
+}
+
+export interface MaritimeShipmentUpdatePayload extends MaritimeShipmentCreatePayload {
+  
 }
 
 export interface LandShipmentUpdatePayload extends LandShipmentCreatePayload {
 }
 
-export interface LandShipmentForm {
+export interface BaseShipmentForm {
   clientId: FormControl<string>;
   productId: FormControl<string>;
-  warehouseId: FormControl<string>;
   quantity: FormControl<number>;
-  registrationDate: FormControl<string>;
+  registrationDate: FormControl<Date>;
   deliveryDate: FormControl<string>;
   shippingCost: FormControl<number>;
-  vehiclePlate: FormControl<string>;
   guideNumber: FormControl<string>;
+}
+
+export interface LandShipmentForm extends BaseShipmentForm {
+  warehouseId: FormControl<string>;
+  vehiclePlate: FormControl<string>;
+}
+
+export interface MaritimeShipmentForm extends BaseShipmentForm {
+  portId: FormControl<string>;
+  fleetNumber: FormControl<string>;
 }
 
