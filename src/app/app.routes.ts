@@ -29,6 +29,6 @@ export const routes: Routes = [
   {
     path: ROUTES.SEA_SHIPMENTS,
     canActivate: [authGuard],
-    loadComponent: () => import('./features/land-shipments/components/land-shipment/land-shipment').then(m => m.LandShipment)
+    loadComponent: () => import('./features/maritime-shipments/components/maritime-shipments/maritime-shipments').then(m => m.MaritimeShipments)
   }
 ];
