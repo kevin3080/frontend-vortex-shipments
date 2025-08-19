@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environments';
 import { API_ROUTES } from '../../../shared/constants/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,9 @@ import { API_ROUTES } from '../../../shared/constants/api';
 export class AuthService {
   private apiUrl = `${environment.apiUrl}${API_ROUTES.AUTH_URL}`;
   private readonly authTokenKey = 'authToken';
+
+  private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +27,18 @@ export class AuthService {
     );
   }
 
-  logout(): void {
+  logout(showMessage: boolean = true): void {
     localStorage.removeItem(this.authTokenKey);
+
+    if (showMessage) {
+      this.snackBar.open('You have been logged out', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom'
+      });
+    }
+
+    this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
